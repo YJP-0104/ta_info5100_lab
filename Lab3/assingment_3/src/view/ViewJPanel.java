@@ -6,8 +6,9 @@ package view;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Date;
 import javax.imageio.ImageIO;
-import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -60,7 +61,6 @@ public class ViewJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButtonSubmit = new javax.swing.JButton();
         PaintentTypejCombobox = new javax.swing.JComboBox<>();
-        imgLabel = new javax.swing.JLabel();
         LnamejLabel = new javax.swing.JLabel();
         LnamejTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -69,6 +69,9 @@ public class ViewJPanel extends javax.swing.JPanel {
         AgejTextField = new javax.swing.JTextField();
         MessagejLabel = new javax.swing.JLabel();
         MessagejTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        DatejDateChooser1 = new com.toedter.calendar.JDateChooser();
+        imgLabel = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
@@ -104,6 +107,7 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
         });
 
+        jSelectImage.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jSelectImage.setText("Select Image");
 
         jLabelTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -142,6 +146,9 @@ public class ViewJPanel extends javax.swing.JPanel {
         MessagejLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         MessagejLabel.setText("Message:");
 
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jLabel4.setText("Date Chooser");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,27 +166,36 @@ public class ViewJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(MessagejLabel)
-                            .addComponent(jLabelName))
+                            .addComponent(jLabelName)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(FnameTextFieldName)
-                            .addComponent(jImageButton1)
-                            .addComponent(jRadioButtonOthers)
-                            .addComponent(jRadioButtonFemale)
-                            .addComponent(jRadioButtonMale)
-                            .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LnamejTextField)
-                            .addComponent(EmailjTextField)
-                            .addComponent(AgejTextField)
-                            .addComponent(MessagejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(DatejDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(FnameTextFieldName)
+                                        .addComponent(jRadioButtonOthers)
+                                        .addComponent(jRadioButtonFemale)
+                                        .addComponent(jRadioButtonMale)
+                                        .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(LnamejTextField)
+                                        .addComponent(EmailjTextField)
+                                        .addComponent(AgejTextField)
+                                        .addComponent(MessagejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jImageButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(155, 155, 155)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonSubmit)
                             .addComponent(jLabelTitle))))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +223,7 @@ public class ViewJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MessagejLabel)
                     .addComponent(MessagejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,15 +237,21 @@ public class ViewJPanel extends javax.swing.JPanel {
                         .addComponent(jRadioButtonOthers)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jImageButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jSelectImage)
-                                .addGap(98, 98, 98)))
-                        .addComponent(jButtonSubmit))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jSelectImage)
+                                        .addGap(52, 52, 52))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jImageButton1)
+                                        .addGap(36, 36, 36)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jButtonSubmit))
+                                    .addComponent(DatejDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(PaitentTypeJ))
                 .addGap(16, 16, 16))
         );
@@ -245,8 +267,8 @@ public class ViewJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -267,7 +289,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         if (file.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
                 BufferedImage img = ImageIO.read(file.getSelectedFile());
-                Image edited_image = img.getScaledInstance(60, 80,
+                Image edited_image = img.getScaledInstance(70, 80,
                         Image.SCALE_SMOOTH);
                 if (edited_image != null) {
                     //                    imgLabel.setText(file.getSelectedFile().getAbsolutePath());
@@ -275,9 +297,8 @@ public class ViewJPanel extends javax.swing.JPanel {
                     this.imgLabel.setIcon(new ImageIcon(edited_image));
                     this.profilepicture = new ImageIcon(edited_image);
                 }
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Please upload image correctlycorrectly.", " Error - Incorrect image", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
             }
         }
     }//GEN-LAST:event_jImageButton1ActionPerformed
@@ -291,6 +312,7 @@ public class ViewJPanel extends javax.swing.JPanel {
             String Email = this.EmailjTextField.getText();
             String Message = this.MessagejTextField.getText();
             String paintentType = this.PaintentTypejCombobox.getSelectedItem().toString();
+            Date Date = this.DatejDateChooser1.getDate();
             if (Fname.length() == 0) {
                 throw new IllegalArgumentException("First Name is Not Filled");
             }
@@ -310,6 +332,7 @@ public class ViewJPanel extends javax.swing.JPanel {
                 throw new IllegalArgumentException("Email Format is Not Correct");
             }
 
+            
             int valueAge;
 
             try {
@@ -329,9 +352,9 @@ public class ViewJPanel extends javax.swing.JPanel {
                 gender = this.buttonGroupGender.getSelection().getActionCommand();
             }
 
-            String displayMessage = Fname + " " + gender + " " + Email + " " + Message + " " + paintentType + " " + Age;
+            String displayMessage = Fname + " " + gender + " " + Email + " " + Message + " " + paintentType + " " + Age + " " + Date;
 
-            JOptionPane.showMessageDialog(this, displayMessage, "Success", HEIGHT, this.profilepicture);
+            JOptionPane.showMessageDialog(this, displayMessage, "Success", JOptionPane.INFORMATION_MESSAGE, this.profilepicture);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -346,7 +369,8 @@ public class ViewJPanel extends javax.swing.JPanel {
         this.EmailjTextField.setText(p1.getEmail());
         this.MessagejTextField.setText(p1.getMessage());
         this.PaintentTypejCombobox.setSelectedItem(p1.getPaitientType());
-        
+        this.DatejDateChooser1.setDate(p1.getDate());
+       
         this.imgLabel.setIcon(p1.getProfilePicture());
         
         String gender = p1.getGender();
@@ -360,6 +384,7 @@ public class ViewJPanel extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AgejTextField;
+    private com.toedter.calendar.JDateChooser DatejDateChooser1;
     private javax.swing.JTextField EmailjTextField;
     private javax.swing.JTextField FnameTextFieldName;
     private javax.swing.JLabel LnamejLabel;
@@ -375,6 +400,7 @@ public class ViewJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;

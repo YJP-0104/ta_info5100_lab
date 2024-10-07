@@ -50,27 +50,8 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
-                          <Component id="imgLabel" min="-2" pref="62" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jSelectImage" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PaitentTypeJ" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="106" pref="106" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
-                                      <Component id="PaintentTypejCombobox" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonFemale" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonOthers" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jImageButton1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabelName" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -88,10 +69,31 @@
                                       <Component id="MessagejTextField" alignment="0" pref="120" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jSelectImage" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="PaitentTypeJ" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="SelectDatejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="DatejDateChooser" min="-2" pref="198" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonMale" min="-2" max="-2" attributes="0"/>
+                                      <Component id="PaintentTypejCombobox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonFemale" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonOthers" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jImageButton1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                          <Component id="imgLabel" min="-2" pref="62" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="182" max="32767" attributes="0"/>
+                  <EmptySpace pref="274" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -139,16 +141,28 @@
                   <Component id="jRadioButtonFemale" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jRadioButtonOthers" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jImageButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSelectImage" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jImageButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSelectImage" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="SelectDatejLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="DatejDateChooser" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="jButtonSubmit" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="imgLabel" min="-2" pref="47" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="imgLabel" min="-2" pref="47" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  <Component id="jButtonSubmit" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -304,6 +318,19 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="MessagejTextField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="SelectDatejLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Select Date"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="DatejDateChooser">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

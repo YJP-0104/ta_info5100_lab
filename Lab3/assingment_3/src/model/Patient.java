@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.Date;
 import javax.swing.ImageIcon;
 
 /**
@@ -20,6 +21,7 @@ public class Patient {
     private String age;
     private String message;
     private ImageIcon profilePicture;
+    private Date Date;
 
     public String getName() {
         return name;
@@ -83,6 +85,14 @@ public class Patient {
 
     public void setProfilePicture(ImageIcon profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public void setDate(Date date) {
+        this.Date = date;
+    }
+
+    public Date getDate() {
+        return Date;
     }
 
 }
