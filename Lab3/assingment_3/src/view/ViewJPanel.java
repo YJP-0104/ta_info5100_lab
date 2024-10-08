@@ -6,14 +6,12 @@ package view;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Patient;
 
 /**
@@ -288,44 +286,21 @@ public class ViewJPanel extends javax.swing.JPanel {
 
     private void jImageButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jImageButton1ActionPerformed
         JFileChooser file = new JFileChooser();
-        file.setDialogTitle("Select an image");
-        file.setFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif")); // Filter for image files
-
-        if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        if (file.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
-                File selectedFile = file.getSelectedFile();
-                // Check if the file has a valid image extension
-                String fileName = selectedFile.getName().toLowerCase();
-                if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png") && !fileName.endsWith(".gif")) {
-                    throw new IllegalArgumentException("Invalid file format. Please select a valid image file (JPG, PNG, GIF).");
-                }
-
-                BufferedImage img = ImageIO.read(selectedFile);
-                if (img == null) {
-                    throw new IOException("Selected file is not a valid image.");
-                }
-
-                // Resize the image
-                Image edited_image = img.getScaledInstance(70, 80, Image.SCALE_SMOOTH);
+                BufferedImage img = ImageIO.read(file.getSelectedFile());
+                Image edited_image = img.getScaledInstance(70, 80,
+                        Image.SCALE_SMOOTH);
                 if (edited_image != null) {
-                    // Set image to the label and update profile picture
+                    //                    imgLabel.setText(file.getSelectedFile().getAbsolutePath());
+                    //                    this.userInfo.setPic(new ImageIcon(edited_image));
                     this.imgLabel.setIcon(new ImageIcon(edited_image));
                     this.profilepicture = new ImageIcon(edited_image);
-                } else {
-                    throw new IOException("Unable to scale the image.");
                 }
-
-            } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "File Format Error", JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error reading the file. Please ensure the file is a valid image.", "Image Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please upload image correctlycorrectly.", " Error - Incorrect image", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "No file selected.", "File Selection Error", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jImageButton1ActionPerformed
 
     private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
