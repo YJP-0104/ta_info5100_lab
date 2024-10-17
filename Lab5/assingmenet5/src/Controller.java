@@ -30,8 +30,8 @@ public class Controller {
         if (name.isEmpty() || age.isEmpty() || email.isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Input Error");
-            alert.setContentText("Please fill in all fields.");
+            alert.setHeaderText("Error");
+            alert.setContentText("Fill all fields.");
             alert.showAndWait();
             return;
         }
@@ -40,8 +40,8 @@ public class Controller {
         } catch (NumberFormatException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Input Error");
-            alert.setContentText("Age should be number");
+            alert.setHeaderText("Error");
+            alert.setContentText("Age must be a  number");
             alert.showAndWait();
             return;
         }
@@ -49,7 +49,7 @@ public class Controller {
         if (!email.matches(emailRegex)) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Input Error");
+            alert.setHeaderText("Error");
             alert.setContentText("Not a valid email address.");
             alert.showAndWait();
             return;
