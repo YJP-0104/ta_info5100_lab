@@ -7,12 +7,15 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import static java.awt.image.ImageObserver.HEIGHT;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Patient;
+import utility.DatabaseConnector;
 
 /**
  *
@@ -55,6 +58,10 @@ public class FormJPanel extends javax.swing.JPanel {
         jButtonSubmit = new javax.swing.JButton();
         PaintentTypejCombobox = new javax.swing.JComboBox<>();
         imgLabel = new javax.swing.JLabel();
+        LastNameLabel = new javax.swing.JLabel();
+        LnameTextField = new javax.swing.JTextField();
+        AgeLabel = new javax.swing.JLabel();
+        AgeTextField = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 102));
 
@@ -80,6 +87,7 @@ public class FormJPanel extends javax.swing.JPanel {
         jRadioButtonOthers.setText("Others");
         jRadioButtonOthers.setActionCommand("OTHERS");
 
+        PaitentTypeJ.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         PaitentTypeJ.setText("Paitent Type");
 
         jImageButton1.setText("Image");
@@ -89,6 +97,7 @@ public class FormJPanel extends javax.swing.JPanel {
             }
         });
 
+        jSelectImage.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jSelectImage.setText("Select Image");
 
         jLabelTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -113,7 +122,13 @@ public class FormJPanel extends javax.swing.JPanel {
             }
         });
 
-        PaintentTypejCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minor", "Major", "Serious", "ICU" }));
+        PaintentTypejCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apointment", "Major", "Serious", "ICU" }));
+
+        LastNameLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        LastNameLabel.setText("LastName:");
+
+        AgeLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        AgeLabel.setText("Age");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,23 +142,33 @@ public class FormJPanel extends javax.swing.JPanel {
                             .addComponent(jButtonSubmit)
                             .addComponent(jLabelTitle)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSelectImage)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(PaitentTypeJ)
-                                .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(77, 77, 77)
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LastNameLabel)
+                            .addComponent(AgeLabel)
+                            .addComponent(PaitentTypeJ)
+                            .addComponent(jLabel1)
+                            .addComponent(jSelectImage))
+                        .addGap(66, 66, 66)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButtonFemale)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldName)
+                                .addComponent(LnameTextField)
+                                .addComponent(AgeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
                             .addComponent(jRadioButtonMale)
-                            .addComponent(jRadioButtonOthers)
-                            .addComponent(jImageButton1)
-                            .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(213, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jRadioButtonOthers)
+                                .addComponent(jRadioButtonFemale))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jImageButton1))))))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,27 +179,35 @@ public class FormJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelName)
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PaitentTypeJ)
-                    .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LastNameLabel)
+                    .addComponent(LnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AgeLabel)
+                    .addComponent(AgeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PaitentTypeJ)
+                    .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jRadioButtonMale))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButtonFemale)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButtonOthers)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jImageButton1)
                     .addComponent(jSelectImage))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonSubmit)
-                .addGap(53, 53, 53))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -183,13 +216,13 @@ public class FormJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -229,18 +262,51 @@ public class FormJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             String name = this.jTextFieldName.getText();
-            String gender = this.buttonGroupGender.getSelection().getActionCommand();
+            String Lname = this.LnameTextField.getText();
+           
+       
+            String Age = this.AgeTextField.getText();
             String paintentType = this.PaintentTypejCombobox.getSelectedItem().toString();
-            String displayMessage = name + " " + gender + " " + paintentType;
+            if (name.length() == 0) {
+                throw new IllegalArgumentException("First Name is Not Filled");
+            }
+            if (Lname.length() == 0) {
+                throw new IllegalArgumentException("Last Name is Not Filled");
+            }
+  
+            int valueAge;
+
+            try {
+                valueAge = Integer.parseInt(Age);
+                if (valueAge < 0 || valueAge > 110) {
+                    throw new IllegalArgumentException("Age is between 0 and 110.");
+                }
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Age should be in number.");
+            }
+
+            String gender;
+
+            if (this.buttonGroupGender.getSelection() == null) {
+                throw new IllegalArgumentException("Please Select Option");
+            } else {
+                gender = this.buttonGroupGender.getSelection().getActionCommand();
+            }
+            
+            
+            String displayMessage = name + " " + Lname +gender + " " + paintentType + " " + Age + " " ;
 
             JOptionPane.showMessageDialog(this, displayMessage, "Success", HEIGHT, this.profilepicture);
 
             Patient p1 = new Patient();
             p1.setName(name);
+            p1.setLname(Lname);
             p1.setGender(gender);
+            p1.setAge(valueAge);
             p1.setPaitientType(paintentType);
             p1.setProfilePicture(profilepicture);
-
+            DatabaseConnector.addPatient(p1);
+            System.out.println("The Row is Store in the database");
             ViewJPanel newViewJPanel = new ViewJPanel(p1);
             this.BottonJPanel.add(newViewJPanel);
             CardLayout layout = (CardLayout) this.BottonJPanel.getLayout();
@@ -256,6 +322,10 @@ public class FormJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AgeLabel;
+    private javax.swing.JTextField AgeTextField;
+    private javax.swing.JLabel LastNameLabel;
+    private javax.swing.JTextField LnameTextField;
     private javax.swing.JComboBox<String> PaintentTypejCombobox;
     private javax.swing.JLabel PaitentTypeJ;
     private javax.swing.ButtonGroup buttonGroupGender;

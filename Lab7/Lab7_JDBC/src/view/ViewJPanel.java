@@ -4,33 +4,45 @@
  */
 package view;
 
-import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import model.Patient;
+import utility.DatabaseConnector;
 
 /**
  *
  * @author yashpatel
  */
-public class FormJPanel extends javax.swing.JPanel {
-
+public class ViewJPanel extends javax.swing.JPanel {
     ImageIcon profilepicture;
-    JPanel BottonJPanel;
-
+    
+    ArrayList<Patient> patients;
     /**
      * Creates new form FormJPanel
      */
-    public FormJPanel(JPanel BottonJPanel) {
-        this.BottonJPanel = BottonJPanel;
+    Patient p1;
+    
+    public ViewJPanel() {
+       
         initComponents();
+        
     }
 
+    public ViewJPanel (Patient p1) {
+         this.p1 = p1;
+        
+        initComponents();
+        populateData();
+        populateTable();
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,8 +67,10 @@ public class FormJPanel extends javax.swing.JPanel {
         jButtonSubmit = new javax.swing.JButton();
         PaintentTypejCombobox = new javax.swing.JComboBox<>();
         imgLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        jPanel1.setBackground(new java.awt.Color(0, 255, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 204));
 
         buttonGroupGender.add(jRadioButtonMale);
         jRadioButtonMale.setText("Male");
@@ -115,6 +129,34 @@ public class FormJPanel extends javax.swing.JPanel {
 
         PaintentTypejCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minor", "Major", "Serious", "ICU" }));
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Gender", "Patient_Type"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -127,52 +169,63 @@ public class FormJPanel extends javax.swing.JPanel {
                             .addComponent(jButtonSubmit)
                             .addComponent(jLabelTitle)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSelectImage)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(PaitentTypeJ)
-                                .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(PaitentTypeJ)
+                            .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(77, 77, 77)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButtonFemale)
                             .addComponent(jRadioButtonMale)
                             .addComponent(jRadioButtonOthers)
                             .addComponent(jImageButton1)
-                            .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(213, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jSelectImage)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabelTitle)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelName)
-                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PaitentTypeJ)
-                    .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jRadioButtonMale))
-                .addGap(8, 8, 8)
-                .addComponent(jRadioButtonFemale)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonOthers)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jImageButton1)
-                    .addComponent(jSelectImage))
-                .addGap(27, 27, 27)
-                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabelTitle)
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelName)
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PaitentTypeJ)
+                            .addComponent(PaintentTypejCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jRadioButtonMale))
+                        .addGap(8, 8, 8)
+                        .addComponent(jRadioButtonFemale)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonOthers)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jImageButton1)
+                            .addComponent(jSelectImage))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jButtonSubmit)
                 .addGap(53, 53, 53))
         );
@@ -182,14 +235,13 @@ public class FormJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -211,7 +263,7 @@ public class FormJPanel extends javax.swing.JPanel {
             try {
                 BufferedImage img = ImageIO.read(file.getSelectedFile());
                 Image edited_image = img.getScaledInstance(60, 80,
-                        Image.SCALE_SMOOTH);
+                    Image.SCALE_SMOOTH);
                 if (edited_image != null) {
                     //                    imgLabel.setText(file.getSelectedFile().getAbsolutePath());
                     //                    this.userInfo.setPic(new ImageIcon(edited_image));
@@ -232,19 +284,9 @@ public class FormJPanel extends javax.swing.JPanel {
             String gender = this.buttonGroupGender.getSelection().getActionCommand();
             String paintentType = this.PaintentTypejCombobox.getSelectedItem().toString();
             String displayMessage = name + " " + gender + " " + paintentType;
-
+            System.out.println(this.jTextFieldName.getText());
+            System.out.println(this.buttonGroupGender.getSelection().getActionCommand());
             JOptionPane.showMessageDialog(this, displayMessage, "Success", HEIGHT, this.profilepicture);
-
-            Patient p1 = new Patient();
-            p1.setName(name);
-            p1.setGender(gender);
-            p1.setPaitientType(paintentType);
-            p1.setProfilePicture(profilepicture);
-
-            ViewJPanel newViewJPanel = new ViewJPanel(p1);
-            this.BottonJPanel.add(newViewJPanel);
-            CardLayout layout = (CardLayout) this.BottonJPanel.getLayout();
-            layout.next(BottonJPanel);
 
         } catch (NullPointerException ne) {
             String errorMessage = "You must Enter value in name and gender";
@@ -253,8 +295,37 @@ public class FormJPanel extends javax.swing.JPanel {
             System.out.println("Excepton Has Occured " + e);
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
-
-
+    
+    public void populateTable() {
+        this.patients = DatabaseConnector.getPatient();
+        
+        DefaultTableModel model = (DefaultTableModel)this.jTable1.getModel();
+        model.setRowCount(0);
+        for (Patient p1: patients){
+            Object [] rows = new Object[4];
+            rows[0] = p1.getId();
+            rows[1] = p1.getName();
+            rows[2] = p1.getGender();
+            rows[3] = p1.getPaitientType();
+            model.addRow(rows);
+            
+            
+            
+        }
+      
+        
+    }
+    public void populateData() {
+        this.jTextFieldName.setText(p1.getName());
+        String gender = p1.getGender();
+        if(gender.equals("MALE")){
+            this.buttonGroupGender.setSelected(this.jRadioButtonMale.getModel(), true);
+        }else if (gender.equals("FEMALE")) {
+            this.buttonGroupGender.setSelected(this.jRadioButtonFemale.getModel(), true);
+        }else if (gender.equals("OTHERS")) {
+            this.buttonGroupGender.setSelected(this.jRadioButtonOthers.getModel(), true);
+        } 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> PaintentTypejCombobox;
     private javax.swing.JLabel PaitentTypeJ;
@@ -269,7 +340,9 @@ public class FormJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButtonFemale;
     private javax.swing.JRadioButton jRadioButtonMale;
     private javax.swing.JRadioButton jRadioButtonOthers;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jSelectImage;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
 }
